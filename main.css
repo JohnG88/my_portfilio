@@ -1,0 +1,11 @@
+.navigation-bar {
+    background-color: #1F2428;
+    height: 50px;
+    display: flex;    
+}
+
+/* add !important to change color of links */
+.nav-link {
+    color: white !important;
+    font-size: 20px;
+}
