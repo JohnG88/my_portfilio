@@ -1,19 +1,9 @@
-<!DOCTYPE html>
+{% extends "base/main.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+{% block content %}
 
-    <!-- <script src="main.js"></script> -->
-    <title>John Gutierrez</title>
-</head>
-<body>
+
     <section class="navigation-bar">
         
         <a class="nav-link" href="#">
@@ -52,7 +42,9 @@
         <div class="project-wrapper">
             {% for projects in project %}
                 <div class="project-column">
-                    <img class="project-thumbnail" src="{{ projects.thumbnail }}" alt="">
+                    <a href="{% url 'project' projects.id %}">
+                        <img class="project-thumbnail" src="{{ projects.thumbnail }}" alt="">
+                    </a>
                     <div class="project-body">
                         <h5>{{ projects.title }}</h5>
                     </div>
@@ -74,41 +66,24 @@
 
         <div class="skills-container">
             <h3>More About Me</h3>
-            <div class="skills-wrapper">
-                <h5>Python</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit debitis corporis quia molestias, aliquid eum! Atque eaque ut, dolorum maiores corrupti iste facilis est possimus eum a modi, quidem non!</p>
-            </div>
-            <div class="skills-wrapper">
-                <h5>Django</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit debitis corporis quia molestias, aliquid eum! Atque eaque ut, dolorum maiores corrupti iste facilis est possimus eum a modi, quidem non!</p>
-            </div>
-            <div class="skills-wrapper">
-                <h5>JavaScript</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit debitis corporis quia molestias, aliquid eum! Atque eaque ut, dolorum maiores corrupti iste facilis est possimus eum a modi, quidem non!</p>
-            </div>
+            {% for skill in detailed_skills %}
+                <div class="skills-wrapper">
+                    <h5>{{ skill.title }}</h5>
+                    <p>{{ skill.body }}</p>
+                </div>
+            {% endfor %}
             
             <h4>Other skills</h4>
             <div class="other-skills-wrapper">
-                <div class="skill-tag">
-                    <span>AWS</span>
-                </div>
-    
-                <div class="skill-tag">
-                    <span>Heroku</span>
-                </div>
-    
-                <div class="skill-tag">
-                    <span>React JS</span>
-                </div>
-    
-                <div class="skill-tag">
-                    <span>Vue JS</span>
-                </div>
+                {% for skill in skills %}
+                    <div class="skill-tag">
+                        <span>{{ skill.title }}</span>
+                    </div>
+                {% endfor %}
             </div>
 
         </div>
 
 
     </section>
-</body>
-</html>
+{% endblock content %}
