@@ -50,24 +50,16 @@
         <h3>My projects</h3>
         <h5>Projects that make my journey worthwhile</h5>
         <div class="project-wrapper">
-            <div class="project-column">
-                <img class="project-thumbnail" src="{% static 'images/background.jpg' %}" alt="">
-                <div class="project-body">
-                    <h5>Laboratory Management System</h5>
+            {% for projects in project %}
+                <div class="project-column">
+                    <img class="project-thumbnail" src="{{ projects.thumbnail }}" alt="">
+                    <div class="project-body">
+                        <h5>{{ projects.title }}</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="project-column">
-                <img class="project-thumbnail" src="{% static 'images/avatar.png' %}" alt="">
-                <div class="project-body">
-                    <h5>Static Potfolio to Django website</h5>
-                </div>
-            </div>
-            <div class="project-column">
-                <img class="project-thumbnail" src="{% static 'images/trashnite.png' %}" alt="">
-                <div class="project-body">
-                    <h5>5 Things that ranked my website better</h5>
-                </div>
-            </div>
+            {% empty %}
+                <h3>There are no projects in the database...</h3>
+            {% endfor %}
         </div>
 
         <div class="about-wrapper">
@@ -75,8 +67,6 @@
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est, iure nihil? Corrupti, soluta maxime expedita incidunt ullam illum quibusdam eum!</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti explicabo itaque exercitationem. Quis, aperiam commodi maxime dignissimos assumenda distinctio deserunt dolor consequuntur dolores debitis incidunt ducimus excepturi voluptas dolore in quas ipsa, eveniet molestias sequi minus id. Libero, eos autem commodi in, sint dignissimos, soluta voluptatum neque et quisquam expedita.</p>
         </div>
-
-        
         
     </section>
 
