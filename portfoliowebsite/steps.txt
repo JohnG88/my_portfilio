@@ -1,3 +1,4 @@
 - Add project link to header
 - Build Project Form
-- 
+
+- Install ck editor

@@ -40,6 +40,10 @@ INSTALLED_APPS = [
 
     # apps
     'base.apps.BaseConfig',
+
+    # third party
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +131,8 @@ STATICFILES_DIRS = [
 
 # this line is to save pic to images folder in static folder
 MEDIA_ROOT = BASE_DIR / 'static/images'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
 

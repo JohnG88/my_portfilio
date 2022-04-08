@@ -1,1 +1,3 @@
 Check out something called https://drawsql.app/
+
+- Adding a django ckeditor(check editor), visit this website for configuration steps 

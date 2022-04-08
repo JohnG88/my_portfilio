@@ -4,15 +4,16 @@
 {% block content %}
     <div class="container">
         <h3>Project Form</h3>
+        {% comment %} added {{ form.media }} to have rich text editor render styles instead of tags {% endcomment %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            
+            {{ form.media }}
             {% for field in form %}
                 <div class="mb-3">
                     <label for="" class="form-label">{{field.label}}</label>
                     {{field}}
                 </div>
-            {% endfor %}
+            {% endfor %} 
 
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
