@@ -1,3 +1,28 @@
+pip freeze > requirements.text
+
 Check out something called https://drawsql.app/
 
-- Adding a django ckeditor(check editor), visit this website for configuration steps 
+- Adding a django ckeditor(check editor), visit this website for configuration steps https://pypi.org/project/django-ckeditor/
+
+- Used regular django ckeditor(there is a newer updated version)
+
+- First install:
+    pip install django-ckeditor
+
+- Second add 'ckeditor' in INSTALLED_APPS in settings.py
+
+- Third collectstatic in terminal
+    py manage.py collectstatic
+
+    - This will copy media resources into CKEditor from STATIC_ROOT
+
+- Fourth, to allow to upload a file add:
+    - In INSTALLED_APPS ADD 'ckeditor_uploader',
+    - Add CKEDITOR_UPLOAD_PATH = 'uploads/'
+    - In root urls.py, add path('ckeditor/', include('ckeditor_uploader.urls')),
+
+The github after creating project
+   - Create repo in github
+   - in terminal type git init, git status, git add ., git commit -m "first Commit"
+   - git remote add origin "repo url"
+   - git push -u origin master
