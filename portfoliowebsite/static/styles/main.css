@@ -124,6 +124,10 @@ body {
     border-radius: 20px;
 }
 
+.project-image {
+    max-width: 800px;
+}
+
 @media (max-width:900px) {
     .hero-content-intro {
         flex-direction: column;
