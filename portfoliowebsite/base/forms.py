@@ -4,7 +4,7 @@ from .models import Project
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'body']
+        fields = ['title', 'thumbnail', 'body']
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)

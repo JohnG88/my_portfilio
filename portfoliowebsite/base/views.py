@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Project, Skill
 from .forms import ProjectForm
 
@@ -20,6 +20,26 @@ def projectPage(request, pk):
 
 def addProject(request):
     form = ProjectForm()
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, 'base/project_form.html', context)
+
+def editProject(request, pk):
+    project = Project.objects.get(id=pk)
+    form = ProjectForm(instance=project)
+
+    # adding the instance below will tell form what to update from
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
 
     context = {'form': form}
     return render(request, 'base/project_form.html', context)
