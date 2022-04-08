@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Project, Skill, Message
-from .forms import ProjectForm
+from .forms import ProjectForm, MessageForm
+
+from django.contrib import messages
 
 # Create your views here.
 
@@ -9,7 +11,17 @@ def homePage(request):
     detailed_skills = Skill.objects.exclude(body='')
     skills = Skill.objects.filter(body='')
 
-    context = {'project': project, 'skills': skills, 'detailed_skills': detailed_skills}
+    form = MessageForm()
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = MessageForm()
+            messages.success(request, 'Your message was successfully sent.')
+
+
+    context = {'project': project, 'skills': skills, 'detailed_skills': detailed_skills, 'form': form}
     return render(request, 'base/home.html', context)
 
 def projectPage(request, pk):
@@ -48,7 +60,10 @@ def inboxPage(request):
     # messages that haven't been read top priority
     inbox = Message.objects.all().order_by('is_read')
 
-    context = {'inbox': inbox}
+    # unread
+    unreadCount = Message.objects.filter(is_read=False).count()
+
+    context = {'inbox': inbox, 'unreadCount': unreadCount}
     return render(request, 'base/inbox.html', context)
 
 def messagePage(request, pk):
