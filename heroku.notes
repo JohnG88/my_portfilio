@@ -23,3 +23,10 @@
     python-3.10.2
 
 - Make sure Procfile, requirements.txt and runtime.txt are in the repo root directory for it to work( in this case my_portfolio)
+
+
+Was having a lot of trouble deploying this to heroku
+    - First you have to get rid of root directory that django gives you when creating project
+    - Next when creating Procfile file, make sure it is capitalized
+    - take off db.sqlite3 from gitignore
+    - in allowed hosts don't add https://, just link name as it is in settings.py
