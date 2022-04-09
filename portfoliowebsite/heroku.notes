@@ -9,6 +9,8 @@
 -Press Open app  button on top right corner of heroku page, it'll open a new window with url of app
 - Go to ALLOWED_HOSTS in settings.py and place in the url (its for django to allow heroku to interact with app)
 
+- pip install gunicorn
+
 - Create a procfile in root directory, since heroku runs on dynos(dinos), they tell heroku how to handle your app
     in procfile add:
         web: gunicorn portfoliowebsite.wsgi --log-file -
@@ -19,3 +21,5 @@
 
 - create a runtime.txt file in root directory and display current python version
     python-3.10.2
+
+- Make sure Procfile, requirements.txt and runtime.txt are in the repo root directory for it to work( in this case my_portfolio)
