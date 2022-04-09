@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'portfolio-live-1.herokuapp.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost'
 ]
 
 
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
