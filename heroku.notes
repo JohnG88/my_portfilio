@@ -24,6 +24,9 @@
 
 - Make sure Procfile, requirements.txt and runtime.txt are in the repo root directory for it to work( in this case my_portfolio)
 
+- For css, static files to work pip install whitenoise
+    - http://whitenoise.evans.io/en/stable/
+
 
 Was having a lot of trouble deploying this to heroku
     - First you have to get rid of root directory that django gives you when creating project
