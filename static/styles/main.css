@@ -1,5 +1,5 @@
 body {
-    background-color: #E5E5E5 !important;
+    background-color: #e5e5e5 !important;
 }
 
 .section-1 {
@@ -9,7 +9,7 @@ body {
 }
 
 .section-2 {
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     padding-top: 2em;
     padding-bottom: 2em;
 }
@@ -18,7 +18,7 @@ body {
     background-color: #354955;
     height: 50px;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 
 /* add !important to change color of links */
@@ -28,11 +28,11 @@ body {
 }
 
 .nav-link:hover {
-    color: #00A0C6 !important;
+    color: #00a0c6 !important;
 }
 
 .hero {
-    background-color: #1F2428;
+    background-color: #1f2428;
     min-height: 70vh;
     color: #fff;
 }
@@ -78,16 +78,37 @@ body {
 }
 
 .project-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    justify-content: flex-start;
     gap: 2em;
     margin-top: 2em;
     margin-bottom: 2em;
+    /* scroll bar will disappear if div is not overflowing*/
+    overflow-x: auto;
 }
 
-/* .project-column {
+.project-wrapper::-webkit-scrollbar {
+    width: 2px;
+}
 
-} */
+.project-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
+}
+
+.project-wrapper::-webkit-scrollbar-thumb {
+    background-color: #197c8b;
+    outline: 1px solid slategrey;
+    border-radius: 100px;
+}
+
+.project-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: #197c8b;
+}
+
+.project-column {
+    min-width: 300px;
+}
 
 .project-thumbnail {
     width: 100%;
@@ -113,12 +134,12 @@ body {
 
 .other-skills-wrapper {
     display: flex;
-    gap: .5em;
+    gap: 0.5em;
 }
 
 /* width: fit-content; just colors whole content, in this case AWS length and width be blue */
 .skill-tag {
-    background-color: #C4E7F2;
+    background-color: #c4e7f2;
     width: fit-content;
     padding: 3px 20px;
     border-radius: 20px;
@@ -134,7 +155,7 @@ body {
     margin: 0 auto;
 }
 
-@media (max-width:900px) {
+@media (max-width: 900px) {
     .hero-content-intro {
         flex-direction: column;
         text-align: center;
@@ -151,19 +172,17 @@ body {
     } */
 }
 
-@media (max-width:800px) {
+@media (max-width: 800px) {
     .hero-content {
         width: 100%;
     }
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
     .skills-container {
         width: 100%;
     }
-} 
-
-
+}
 
 /* tag text-color: 354955;
        background-color: C4E7F2; */
