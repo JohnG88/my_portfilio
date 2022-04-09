@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'https://portfolio-live-1.herokuapp.com/',
-    '127.0.0.1'
 ]
 
 
