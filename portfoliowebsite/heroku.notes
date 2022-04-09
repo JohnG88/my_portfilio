@@ -1,0 +1,21 @@
+- Login to heroku
+- create new app
+- In settings check for Add Buildpack button(in this case we are using django so pick python)
+- Then check under deploy, and here we are going the Connect to Github 
+- Connect to github, login to github, after logging in search for you repo name you are trying to upload
+- Once you find repo name then press connect button.
+- Don't do anything after, still more steps to do before deploying
+
+-Press Open app  button on top right corner of heroku page, it'll open a new window with url of app
+- Go to ALLOWED_HOSTS in settings.py and place in the url (its for django to allow heroku to interact with app)
+
+- Create a procfile in root directory, since heroku runs on dynos(dinos), they tell heroku how to handle your app
+    in procfile add:
+        web: gunicorn portfoliowebsite.wsgi --log-file -
+
+        - The gunicorn does
+        - portfoliowebsite is name of app
+        -wsgi is wsgi.py of app
+
+- create a runtime.txt file in root directory and display current python version
+    python-3.10.2
