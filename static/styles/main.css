@@ -128,9 +128,17 @@ body {
     padding: 1em;
 }
 
-.skill-wrapper {
+.skills-wrapper {
     margin-top: 2em;
     margin-bottom: 2em;
+    display: flex;
+    gap: 2em;
+    align-items: center;
+}
+
+.skill-logo {
+    height: 60px;
+    
 }
 
 .other-skills-wrapper {
