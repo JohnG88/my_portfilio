@@ -192,6 +192,10 @@ body {
     .skills-container {
         width: 100%;
     }
+
+    .skills-wrapper {
+        flex-flow: column;
+    }
 }
 
 /* tag text-color: 354955;
