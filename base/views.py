@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Project, Skill, Message
-from .forms import ProjectForm, MessageForm, SkillForm
+from .models import Project, Skill, Message, Endorsement, Comment
+from .forms import ProjectForm, MessageForm, SkillForm, EndorsementForm, CommentForm
 
 from django.contrib import messages
 
@@ -23,7 +23,9 @@ from django.db.utils import OperationalError
 def homePage(request):
     project = Project.objects.all()
     detailed_skills = Skill.objects.exclude(body='')
+
     skills = Skill.objects.filter(body='')
+    endorsements = Endorsement.objects.filter(approved=True)
 
     form = MessageForm()
 
@@ -35,13 +37,26 @@ def homePage(request):
             messages.success(request, 'Your message was successfully sent.')
 
 
-    context = {'project': project, 'skills': skills, 'detailed_skills': detailed_skills, 'form': form}
+    context = {'project': project, 'skills': skills, 'detailed_skills': detailed_skills, 'form': form, 'endorsements': endorsements}
     return render(request, 'base/home.html', context)
 
 def projectPage(request, pk):
     project = Project.objects.get(id=pk)
+    count = project.comment_set.count()
+    comments = project.comment_set.all().order_by('-created')
 
-    context = {'project': project}
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.project = project
+            comment.save()
+            form = CommentForm()
+            messages.success(request, 'Your comment was successfully sent.')
+
+    context = {'project': project, 'count': count, 'comments': comments, 'form': form}
     return render(request, 'base/project.html', context)
 
 def addProject(request):
@@ -100,3 +115,16 @@ def addSkill(request):
 
     context = {'form': form}
     return render(request, 'base/skill_form.html', context)
+
+def addEndorsement(request):
+    form = EndorsementForm()
+    
+    if request.method == 'POST':
+        form = EndorsementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Thank you, your endorsement was successfully sent.')
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, 'base/endorsement_form.html', context)

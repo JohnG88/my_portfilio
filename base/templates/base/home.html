@@ -71,6 +71,34 @@
     </section>
 
     <section class="section-2">
+
+        <div class="skills-container">
+            <h3>Endorsements</h3>
+            <a class="btn btn-primary my-2" href="{% url 'add-endorsement' %}">Add Endorsement</a>
+            {% for i in endorsements %}
+                <div class="card" style="margin-bottom: 0.5em;">
+                    <div class="card-body">
+                        <h5>{{ i.name }}</h5>
+                        <p>{{ i.body }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            <h4>Other skills</h4>
+            <div class="other-skills-wrapper">
+                {% for skill in skills %}
+                    <div class="skill-tag">
+                        <span>{{ skill.title }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <section class="section-2">
         <div class="container">
             <form class="contact-form" method="POST">
                 {% csrf_token %}
