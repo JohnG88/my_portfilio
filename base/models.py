@@ -4,6 +4,20 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
+TYPES = (
+    ('backend', 'backend'),
+    ('frontend', 'frontend'),
+    ('fullstack', 'fullstack'),
+)
+
+class Question(models.Model):
+    answer = models.CharField(max_length=500, choices=TYPES)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
+    def __str__(self):
+        return self.answer
+
 class Project(models.Model):
     title = models.CharField(max_length=200)
     thumbnail = models.ImageField(null=True, )
