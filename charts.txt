@@ -1,0 +1,1 @@
+check out https://d3js.org/,  https://www.chartjs.org/ and https://www.highcharts.com/ for charts

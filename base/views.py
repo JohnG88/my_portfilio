@@ -132,3 +132,7 @@ def addEndorsement(request):
 def donationPage(request):
 
     return render(request, 'base/donation.html')
+
+def chartPage(request):
+
+    return render(request, 'base/chart.html')

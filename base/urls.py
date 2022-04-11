@@ -12,4 +12,5 @@ urlpatterns = [
     path('add-endorsement/', views.addEndorsement, name='add-endorsement'),
 
     path('donation/', views.donationPage, name='donation'),
+    path('chart/', views.chartPage, name='chart'),
 ]
