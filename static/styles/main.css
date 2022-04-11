@@ -19,6 +19,7 @@ body {
     height: 50px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 /* add !important to change color of links */
@@ -65,6 +66,7 @@ body {
     font-size: 100px;
     font-weight: 700;
     letter-spacing: 3px;
+    line-height: .9em;
 }
 
 .description {
