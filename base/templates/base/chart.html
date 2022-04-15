@@ -1,5 +1,5 @@
 {% extends "base/main.html" %} 
-{% load static %}
+{% load static %} 
 {% block content %}
 
     <div class="container">
@@ -7,113 +7,145 @@
             <div id="container"></div>
         </figure>
 
-        <form style="width: 300px; margin: 0 auto;" method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="mb-3">
-                    <label for="" class="form-label">{{field.label}}</label>
-                    {{field}}
-                </div>
-            {% endfor %} 
+        <form id="post-form" style="width: 300px; margin: 0 auto" method="POST">
+            {% csrf_token %} {% for field in form %}
+            <div class="mb-3">
+                <label for="" class="form-label">{{field.label}}</label>
+                {{field}}
+            </div>
+            {% endfor %}
 
-            <input class="btn btn-primary" type="submit" value="Place Vote">
+            <input class="btn btn-primary" type="submit" value="Place Vote" />
         </form>
-
     </div>
 
     <script>
-        
-        const loadData = () => {
-            fetch('http://127.0.0.1:8000/api/', {
-                method: 'GET',
+        const formSubmit = document.querySelector("#post-form");
+
+        formSubmit.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log("Clicked");
+            const a = document.querySelector("#id_answer").value;
+            const data = {answer: a}
+            const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+            /*const getAnswer = a.options[a.selectedIndex].value;*/
+            console.log('Answer', a)
+            console.log('Token', token)
+
+            fetch("http://127.0.0.1:8000/chart/", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": token,
+                },
+                body: JSON.stringify(data)
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success ', data);
+                    renderChart(data.backend, data.frontend, data.fullstack);
+                })
+                .catch((error) => {
+                    console.log('Error', error);
+                });
+            loadData();
+            
+            /*
+            HChart.series[0].addPoint({
+                name: "Otra Diferente",
+                y: 7.61,
+            });
+            */
+        });
+
+        /*
+                in fetch while using in localhost use 'http://127.0.0.1:8000/api/'
+
+                When using in heroku, etc use '/api/'(however its set in urls.py from setting and api)
+            */
+        const loadData = () => {
+            
+            fetch("http://127.0.0.1:8000/api/", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
                 },
             })
-                .then(response => response.json())
-                .then(data => {
-                    renderChart(data.backend, data.frontend, data.fullstack)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Initial Data ", data)
+                    renderChart(data.backend, data.frontend, data.fullstack);
                 });
-        }
+        };
 
         loadData();
 
         const renderChart = (backend, frontend, fullstack) => {
-            Highcharts.chart('container', {
+            Highcharts.chart("container", {
                 chart: {
-                    type: 'column'
+                    type: "column",
                 },
                 title: {
-                    text: 'Developer Types'
+                    text: "Developer Types",
                 },
                 subtitle: {
-                    text: 'John G Stream'
+                    text: "John G Stream",
                 },
                 /*
-                xAxis: {
-                    categories: [
-                        'Backend',
-                        'Frontend',
-                        'FullStack'
-                    ],
-                    crosshair: true
-                },
-                */
+                    xAxis: {
+                        categories: [
+                            'Backend',
+                            'Frontend',
+                            'FullStack'
+                        ],
+                        crosshair: true
+                    },
+                    */
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Total'
-                    }
+                        text: "Total",
+                    },
                 },
                 /*
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                
-                plotOptions: { 
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                */
-                series: [{
-                    name: 'Backend Dev',
-                    data: [backend]
-            
-                }, {
-                    name: 'Frontend Dev',
-                    data: [frontend]
-            
-                }, {
-                    name: 'Fullstack Dev',
-                    data: [fullstack]
-            
-                },
-                ]
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    
+                    plotOptions: { 
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    */
+                series: [
+                    {
+                        name: "Backend Dev",
+                        data: [backend],
+                    },
+                    {
+                        name: "Frontend Dev",
+                        data: [frontend],
+                    },
+                    {
+                        name: "Fullstack Dev",
+                        data: [fullstack],
+                    },
+                ],
             });
-        }
+        };
         renderChart();
     </script>
 
-    {% comment %} series: [{
-                name: 'Backend',
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-        
-            }, {
-                name: 'Frontend',
-                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-        
-            }, {
-                name: 'Fullstack',
-                data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-        
-            },
-            ] {% endcomment %}
-
+{% comment %} series: [{ name: 'Backend', data: [49.9, 71.5, 106.4, 129.2,
+144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4] }, { name: 'Frontend',
+data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6,
+92.3] }, { name: 'Fullstack', data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0,
+59.6, 52.4, 65.2, 59.3, 51.2] }, ] {% endcomment %} 
 {% endblock content %}

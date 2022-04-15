@@ -1,6 +1,11 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from .models import Project, Skill, Message, Endorsement, Comment
+from .models import Project, Skill, Message, Endorsement, Comment, Question
 from .forms import ProjectForm, MessageForm, SkillForm, EndorsementForm, CommentForm, QuestionForm
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from django.contrib import messages
 
@@ -133,16 +138,46 @@ def donationPage(request):
 
     return render(request, 'base/donation.html')
 
+
 def chartPage(request):
+    all_answers = Question.objects.all()
+    print(f"All Answers: {all_answers}")
     form = QuestionForm()
 
     if request.method == 'POST':
         form = QuestionForm(request.POST)
+        data = json.loads(request.body)
+        data_answer = data.get('answer')
+        answer = Question.objects.create()
+        answer.answer = data_answer
+        answer.save()
+
+        backend = Question.objects.filter(answer='backend').count()
+        frontend = Question.objects.filter(answer='frontend').count()
+        fullstack = Question.objects.filter(answer='fullstack').count()
+
+        return JsonResponse({
+                'backend': backend,
+                'frontend': frontend,
+                'fullstack': fullstack
+            })
+        
+        print(f'Data Answer: {data_answer}')
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Thank you, you voted successfully.')
-            return redirect('chart')
+            data = json.loads(request.body.decode("utf-8"))
+            tag = data['answer']
+            item_form = form.save(commit=False)
+            item_form.answer = data_answer
+            # answer = Question(answer=data_answer)
+            # answer.save()
+            item_form.save()
+            return JsonResponse({
+                'answer': form.answer
+            })
+            # messages.success(request, 'Thank you, you voted successfully.')
+            # return redirect('chart')
             # form = QuestionForm()
+        # print(f"Form: {form}")
 
     context = {'form': form}
     return render(request, 'base/chart.html', context)
