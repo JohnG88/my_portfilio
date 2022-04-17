@@ -162,18 +162,18 @@ def chartPage(request):
                 'fullstack': fullstack
             })
         
-        print(f'Data Answer: {data_answer}')
-        if form.is_valid():
-            data = json.loads(request.body.decode("utf-8"))
-            tag = data['answer']
-            item_form = form.save(commit=False)
-            item_form.answer = data_answer
-            # answer = Question(answer=data_answer)
-            # answer.save()
-            item_form.save()
-            return JsonResponse({
-                'answer': form.answer
-            })
+        # print(f'Data Answer: {data_answer}')
+        # if form.is_valid():
+        #     data = json.loads(request.body.decode("utf-8"))
+        #     tag = data['answer']
+        #     item_form = form.save(commit=False)
+        #     item_form.answer = data_answer
+        #     # answer = Question(answer=data_answer)
+        #     # answer.save()
+        #     item_form.save()
+        #     return JsonResponse({
+        #         'answer': form.answer
+        #     })
             # messages.success(request, 'Thank you, you voted successfully.')
             # return redirect('chart')
             # form = QuestionForm()
