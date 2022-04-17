@@ -83,6 +83,7 @@ body {
     display: flex;
     justify-content: flex-start;
     gap: 2em;
+    padding-right: 10px;
     margin-top: 2em;
     margin-bottom: 2em;
     /* scroll bar will disappear if div is not overflowing*/
@@ -109,11 +110,11 @@ body {
 }
 
 .project-column {
-    min-width: 300px;
+    width: 100%;
 }
 
 .project-thumbnail {
-    width: 100%;
+    width: 300px;
     height: 200px;
     object-fit: cover;
 }
@@ -122,6 +123,7 @@ body {
     background-color: #fff;
     padding: 1em;
     min-height: 100px;
+    width: 100%;
 }
 
 .skills-container {
@@ -136,7 +138,12 @@ body {
     display: flex;
     gap: 2em;
     align-items: center;
+    white-space: pre-line;
 }
+
+/* .skill-info, p {
+    white-space: pre-line;
+} */
 
 .skill-logo {
     height: 60px;
@@ -173,9 +180,9 @@ body {
         text-align: center;
     }
 
-    .project-wrapper {
+    /* .project-wrapper {
         grid-template-columns: 1fr;
-    }
+    } */
 
     /* .project-thumbnail {
         width: 100%;
@@ -193,10 +200,52 @@ body {
 @media (max-width: 600px) {
     .skills-container {
         width: 100%;
+        /* align-items: center; */
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    .skill-info {
+        align-items: left;
+        border: 1px solid red;
+        width: 100%;
     }
 
     .skills-wrapper {
         flex-flow: column;
+        word-wrap: break-word;
+    }
+
+    .intro-name, .description {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 300px) {
+    .project-thumbnail {
+        width: 220px;
+        object-fit: contain;
+    }
+    .project-body > h5 {
+        font-size: 15px;
+        word-wrap: normal;
+    }
+
+    .project-body {
+        width: 220px;
+    }
+
+    .intro-name, .description {
+        font-size: 30px;
+    }
+
+    #profile-pic {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+    
+        /* only use line below if pic is distorted, like low definition */
+        /* object-fit: cover; */
     }
 }
 
