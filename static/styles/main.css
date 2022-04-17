@@ -14,12 +14,12 @@ body {
     padding-bottom: 2em;
 }
 
-.navigation-bar {
-    background-color: #354955;
-    height: 50px;
-    display: flex;
+nav {
+    background-color: #354955 !important;
+    /* height: 50px; */
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
 
 /* add !important to change color of links */
